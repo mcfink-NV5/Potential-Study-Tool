@@ -8,20 +8,21 @@ with open(script_path, 'r') as f:
 exec(script_code)
 
 # %%
-
-# #to upload a file
-# fl = st.file_uploader(":file_folder: Upload a file",type=(["csv","txt","xlsx","xls"]))
-# if fl is not None:
-#     filename = fl.name
-#     st.write(filename)
-#     df = combine_excel_sheets(filename)
-# else:
-#     os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Streamlit")
-df = combine_measure_sheets("PR_Measures.xlsx")
-
+df_measure = combine_measure_sheets("Input Sheet Template.xlsx")
 
 # %%
-#clean headers
-df_clean = df.rename(columns=clean_headers)
-df_clean
+#Clean Output
+df_clean = df_measure.rename(columns=clean_headers)
+df_clean = df_clean.dropna(how='all')
+#there is bad raw data I am guessing
+
+
+# #remove these odd rows
+mask = df_clean == '-'
+# Count the number of '-' in each row
+count_dashes = mask.sum(axis=1)
+# Remove rows where the count of '-' is more than 1
+df_clean = df_clean[count_dashes <= 1]
+
+
 # %%
