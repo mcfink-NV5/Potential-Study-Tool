@@ -8,7 +8,7 @@ with open(script_path, 'r') as f:
 exec(script_code)
 
 # %%
-df_measure = combine_measure_sheets("Input Sheet Template.xlsx")
+df_measure = combine_measure_sheets("Test_Measures.xlsx")
 
 # %%
 #Clean Output
