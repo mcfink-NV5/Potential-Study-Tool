@@ -74,20 +74,61 @@ df_clean = df_clean[count_dashes <= 1]
 ### Filters
 # ========================
 st.sidebar.header("Choose your filter: ")
-## Create for Sector
-sector = st.sidebar.multiselect("Pick your Sector", df_clean["sector"].unique())
-if not sector:
-    df2 = df_clean.copy()
-else:
-    df2 = df_clean[df_clean["sector"].isin(sector)]
-# # # # Create for primary_fuel
 # # Create for primary_fuel_end_use
 # # Create for links_with
-primary_fuel = st.sidebar.multiselect("Pick your Primary Fuel", df_clean["primary_fuel"].unique())
-if not primary_fuel:
-    df2 = df_clean.copy()
+
+sector = st.sidebar.multiselect("Pick your Sector", df_clean["sector"].unique())
+
+# Filter the DataFrame by sector
+if sector:
+    df2 = df_clean[df_clean["sector"].isin(sector)]
 else:
-    df2 = df_clean[df_clean["primary_fuel"].isin(primary_fuel)]
+    df2 = df_clean.copy()
+
+# Create Primary Fuel filter
+primary_fuel = st.sidebar.multiselect("Pick your Primary Fuel", df2["primary_fuel"].unique())
+
+# Filter the DataFrame by primary fuel (on top of the sector filter)
+if primary_fuel:
+    df2 = df2[df2["primary_fuel"].isin(primary_fuel)]
+# ========================
+### Make Heat map of completion DF and chart
+heatchart = df2
+
+import plotly.graph_objects as go
+st.subheader('Data Completion Heat Map')
+# ========================
+
+# Create a binary DataFrame where 1 indicates non-NA and 0 indicates NA
+binary_df = heatchart.drop(columns=['measure_name']).notna().astype(int)
+
+# Get the measure names for the Y-axis
+measure_names = heatchart['measure_name']
+
+# Create a heat map
+fig = go.Figure(data=go.Heatmap(
+    z=binary_df.values,
+    x=binary_df.columns,
+    y=measure_names,
+    colorscale=[[0, 'red'], [1, 'green']],
+    showscale=False
+))
+
+# Update layout for better readability
+fig.update_layout(
+    height=500,
+    width=1000,
+    xaxis_title="Columns",
+    yaxis_title="Measure Names",
+    font=dict(
+        family="Arial, sans-serif",
+        size=14,
+        color="Black"
+    )
+)
+
+# Display the heat map
+st.plotly_chart(fig, use_container_width=True)
 
 
 # ========================
