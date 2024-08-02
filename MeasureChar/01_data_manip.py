@@ -7,9 +7,10 @@ with open(script_path, 'r') as f:
 
 exec(script_code)
 
+
 # %%
 df_measure = combine_measure_sheets_test("Test_Measures.xlsx")
-
+test = df_measure
 # %%
 #Clean Output
 df_clean = df_measure.rename(columns=clean_headers)
