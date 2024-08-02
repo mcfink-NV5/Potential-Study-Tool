@@ -47,11 +47,14 @@ fl = st.file_uploader(":file_folder: Upload a file",type=(["csv","txt","xlsx","x
 if fl is not None:
     filename = fl.name
     st.write(filename)
-    os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool\MeasureChar")
+    #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool\MeasureChar")
+    os.chdir(os.relpath("MeasureChar"))
     df = combine_measure_sheets_test(filename)
-    os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
+    #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
+    os.chdir(os.relpath(".."))  
 else:
-    os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
+    #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
+    os
     df = combine_measure_sheets_test("MeasureChar/Test_Measures.xlsx")
 
 # ========================
