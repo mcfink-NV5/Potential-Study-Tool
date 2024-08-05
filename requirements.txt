@@ -1,4 +1,3 @@
-python
 plotly>=4.8.0
 pandas
 altair
