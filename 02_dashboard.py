@@ -19,6 +19,9 @@ with open(script_path, 'r') as f:
 
 exec(script_code)
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+measure_char_path = os.path.join(base_dir, "MeasureChar")
+
 # ========================
 ### Build Web app
 # ========================
@@ -48,12 +51,12 @@ if fl is not None:
     filename = fl.name
     st.write(filename)
     #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool\MeasureChar")
-    os.chdir(os.relpath("MeasureChar"))
+    os.chdir(measure_char_path)
     df = combine_measure_sheets_test(filename)
     #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
-    os.chdir(os.relpath(".."))  
+    os.chdir(base_dir)  
 else:
-    #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
+    os.chdir(base_dir)
     df = combine_measure_sheets_test("MeasureChar/Test_Measures.xlsx")
 
 # ========================
