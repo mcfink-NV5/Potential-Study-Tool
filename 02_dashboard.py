@@ -17,7 +17,7 @@ script_path = '000_init.py'
 with open(script_path, 'r') as f:
     script_code = f.read()
 
-# exec(script_code)
+exec(script_code)
 
 # ========================
 ### Build Web app
@@ -54,7 +54,6 @@ if fl is not None:
     os.chdir(os.relpath(".."))  
 else:
     #os.chdir(r"C:\Users\AndrewJ.Johnson\OneDrive - NV5\Documents\GitHub\Potential-Study-Tool")
-    os
     df = combine_measure_sheets_test("MeasureChar/Test_Measures.xlsx")
 
 # ========================
